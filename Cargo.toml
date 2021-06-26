@@ -3,6 +3,13 @@ name = "dgen"
 version = "0.1.0"
 authors = ["ProCode2 <bpro249@gmail.com>"]
 edition = "2018"
+license-file = "LICENSE"
+description = "Maintain a single JSON blueprint for you huge starter repository."
+homepage = "https://github.com/ProCode2/dgen"
+repository = "https://github.com/ProCode2/dgen"
+readme = "README.md"
+keywords = ["generate", "template", "starter", "json"]
+categories = ["command-line-utilities"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
