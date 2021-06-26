@@ -10,6 +10,7 @@ repository = "https://github.com/ProCode2/dgen"
 readme = "README.md"
 keywords = ["generate", "template", "starter", "json"]
 categories = ["command-line-utilities"]
+exclude = ["cra.json", "template.json"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
