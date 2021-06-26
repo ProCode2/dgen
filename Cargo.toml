@@ -1,5 +1,5 @@
 [package]
-name = "dgen"
+name = "dgen-rs"
 version = "0.1.0"
 authors = ["ProCode2 <bpro249@gmail.com>"]
 edition = "2018"
