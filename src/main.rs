@@ -133,9 +133,9 @@ fn main() -> Result<()> {
             Arg::with_name("Generate_Repository")
                 .short("g")
                 .long("generate")
-                .value_name("JSON blueprint name")
+                .value_name("path to JSON blueprint")
                 .help("Create the directory from the json blueprint.")
-                .takes_value(false),
+                .takes_value(true),
         )
         .get_matches();
 
