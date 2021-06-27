@@ -50,3 +50,7 @@ The binary file should be created in `dgen/target/release` with the name `dgen-r
 # to generate the repository from the JSON blueprint
 ./path/to/dgen-rs -g /path/to/json
 ```
+
+# Known Issues
+
+- Currently it only stores files with valid UTF-8 content. Which basically means it does not store image, audio, video content and binaries. So far, I am thinking of storing images as base64 strings because some starter repos might have images.
