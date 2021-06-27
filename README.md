@@ -19,12 +19,34 @@ FLAGS:
 
 # Install
 
-`TODO`
+For now, if you have rust installed you can play around with the project.
+
+```bash
+# clone the repo
+git clone https://github.com/ProCode2/dgen.git
+
+# get in the project diretory
+cd dgen
+
+# build the binary
+cargo build --release
+
+# check if its working
+./target/release/dgen-rs -V
+```
+
+The binary file should be created in `dgen/target/release` with the name `dgen-rs`.
 
 # Generate a blueprint
 
-`TODO`
+```bash
+# to create a JSON blueprint, go inside the directory you want to create a blueprint of
+./path/to/dgen-rs -b
+```
 
 # Generate a repository from a blueprint
 
-`TODO`
+```bash
+# to generate the repository from the JSON blueprint
+./path/to/dgen-rs -g /path/to/json
+```
