@@ -8,13 +8,15 @@ ProCode
 Create your starter repositories from a single json blueprint.
 
 USAGE:
-    dgen [FLAGS]
+    dgen-rs [FLAGS] [OPTIONS]
 
 FLAGS:
     -b, --blueprint    Create json blueprint of the directory you are in.
-    -g, --generate     Create the directory from the json blueprint.
     -h, --help         Prints help information
     -V, --version      Prints version information
+
+OPTIONS:
+    -g, --generate <path to JSON blueprint>    Create the directory from the json blueprint.
 ```
 
 # Install
@@ -44,7 +46,7 @@ The binary file should be created in `dgen/target/release` with the name `dgen-r
 $ ./path/to/dgen-rs -b
 ```
 
-if you have a repository in github and would like to generate a blueprint for that: While I will build this feature in the core library, here's a neat little trick to do that for now:
+if you have a repository in github and would like to generate a blueprint for that: While I will build this feature in the core library, here's a weird trick to do that for now:
 
 ```bash
 $ git clone https://github.com/username/repo_name.git && cd repo_name && ~/path/to/dgen-rs -b && cd ../ && mv ./repo_name/repo_name.json . && rm -rf repo_name
