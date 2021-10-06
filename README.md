@@ -66,7 +66,8 @@ $ ./path/to/dgen-rs -g /path/to/json
 
 ```bash
 # to generate a JSON blueprint from the repository
-$ ./path/to/dgen-rs -r <username/repo of GitHub repository>
+$ ./path/to/dgen-rs -r <Username or Organization>/<Repository Name>
+# example: ./path/to/dgen-rs -r rodgeraraujo/Pokedex
 ```
 
 # Known Issues
