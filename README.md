@@ -13,6 +13,7 @@ USAGE:
 FLAGS:
     -b, --blueprint    Create json blueprint of the directory you are in.
     -h, --help         Prints help information
+    -r, --repository   Create json blueprint of a GitHub repository.
     -V, --version      Prints version information
 
 OPTIONS:
@@ -59,6 +60,13 @@ $ git clone https://github.com/username/repo_name.git && cd repo_name && ~/path/
 ```bash
 # to generate the repository from the JSON blueprint
 $ ./path/to/dgen-rs -g /path/to/json
+```
+
+# Creates a blueprint form a repository
+
+```bash
+# to generate a JSON blueprint from the repository
+$ ./path/to/dgen-rs -r <username/repo of GitHub repository>
 ```
 
 # Known Issues
