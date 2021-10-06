@@ -90,12 +90,15 @@ fn json_from_dir(folder: &mut FolderNode, path: String) {
 fn generate_json(path: &Path) {
     let root_name = path.file_name().unwrap().to_string_lossy();
     let mut f = FolderNode {
-        name: String::from(path.parent().unwrap().to_string_lossy()),
+        name: String::from(root_name.clone()),
         files: Vec::new(),
         folders: Vec::new(),
     };
 
-    json_from_dir(&mut f, String::from(""));
+    json_from_dir(
+        &mut f,
+        format!("{}/", path.parent().unwrap().to_string_lossy()),
+    );
     let json_template = serde_json::to_string(&f).unwrap();
     match fs::write(format!("{}.json", root_name), &json_template) {
         Ok(_) => println!("Done!"),
@@ -138,7 +141,7 @@ fn generate_from_repository(reference: &str, repo_name: &str) -> Result<(), IOEr
     let temp_path = format!("{}", temp.path().display());
     let repo = format!("https://github.com/{}", reference);
     let return_code = Command::new("git")
-        .args(["clone", &repo, &temp_path])
+        .args(["clone", &repo, &format!("{}/{}", &temp_path, repo_name)].iter())
         .status()?;
     if !return_code.success() {
         return Err(IOError::new(
