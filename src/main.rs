@@ -1,5 +1,7 @@
 use clap::{App, Arg};
 use serde::{Deserialize, Serialize};
+use serde_with::base64::Base64;
+use serde_with::serde_as;
 use std::env;
 use std::fs;
 use std::io::{prelude::*, Error as IOError, ErrorKind as IOErrorKind};
@@ -7,10 +9,20 @@ use std::path::Path;
 use std::process::Command;
 use tempdir::TempDir;
 
+#[serde_as]
+#[derive(Serialize, Deserialize, Debug)]
+enum FileContent {
+    #[serde(rename = "content")]
+    Text(String),
+    #[serde(rename = "binary-content")]
+    Binary(#[serde_as(as = "Base64")] Vec<u8>),
+}
+
 #[derive(Serialize, Deserialize, Debug)]
 struct FileNode {
     name: String,
-    content: String,
+    #[serde(flatten)]
+    content: FileContent,
 }
 
 // The core data structure
@@ -33,7 +45,13 @@ fn dir_from_json(folder: &FolderNode, path: String) -> Result<(), IOError> {
     folder.files.iter().for_each(|file| {
         println!("Generating new file: {}{}", &new_path, &file.name);
         let mut file_handler = fs::File::create(format!("{}{}", &new_path, &file.name)).unwrap();
-        let _ = file_handler.write_all(file.content.as_bytes()).unwrap();
+
+        let bytes_to_write = match &file.content {
+            FileContent::Text(text) => text.as_bytes(),
+            FileContent::Binary(binary) => binary,
+        };
+
+        let _ = file_handler.write_all(bytes_to_write).unwrap();
     });
 
     // base case [TODO: also handle if folder key does not exist]
@@ -70,10 +88,14 @@ fn json_from_dir(folder: &mut FolderNode, path: String) {
             json_from_dir(&mut f, new_path.clone());
             folder.folders.push(f);
         } else {
-            if fs::read_to_string(path.path()).is_err() {
+            let file_content = if let Ok(text) = fs::read_to_string(path.path()) {
+                FileContent::Text(text)
+            } else if let Ok(binary) = fs::read(path.path()) {
+                FileContent::Binary(binary)
+            } else {
                 continue;
-            }
-            let file_content = fs::read_to_string(path.path()).unwrap();
+            };
+
             folder.files.push(FileNode {
                 name: path
                     .path()
@@ -82,7 +104,7 @@ fn json_from_dir(folder: &mut FolderNode, path: String) {
                     .to_string_lossy()
                     .to_string(),
                 content: file_content,
-            })
+            });
         }
     }
 }
