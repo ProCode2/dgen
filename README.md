@@ -71,5 +71,3 @@ $ ./path/to/dgen-rs -r <Username or Organization>/<Repository Name>
 ```
 
 # Known Issues
-
-- Currently it only stores files with valid UTF-8 content. Which basically means it does not store image, audio, video content and binaries. So far, I am thinking of storing images as base64 strings because some starter repos might have images.
